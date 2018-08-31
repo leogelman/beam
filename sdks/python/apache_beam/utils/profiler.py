@@ -103,19 +103,16 @@ class MemoryReporter(object):
   """
 
   def __init__(self, interval_second=60.0):
-    # guppy might not have installed. http://pypi.python.org/pypi/guppy/0.1.10
-    # The reporter can be set up only when guppy is installed (and guppy cannot
-    # be added to the required packages in setup.py, since it's not available
-    # in all platforms).
+    # pympler might not have installed. https://pypi.org/project/Pympler/0.5/
+    # The reporter can be set up only when pympler is installed 
     try:
-      from guppy import hpy  # pylint: disable=import-error
-      self._hpy = hpy
+      from pympler import summary, muppy  # pylint: disable=import-error
+      self._muppy = muppy
       self._interval_second = interval_second
       self._timer = None
     except ImportError:
-      warnings.warn('guppy is not installed; MemoryReporter not available.')
-      self._hpy = None
-    self._enabled = False
+      warnings.warn('pympler is not installed; MemoryReporter not available.')
+      self._muppy = None
 
   def __enter__(self):
     self.start()
@@ -125,7 +122,7 @@ class MemoryReporter(object):
     self.stop()
 
   def start(self):
-    if self._enabled or not self._hpy:
+    if self._enabled or not self._muppy:
       return
     self._enabled = True
 
@@ -146,9 +143,9 @@ class MemoryReporter(object):
     self._enabled = False
 
   def report_once(self):
-    if not self._hpy:
+    if not self._muppy:
       return
     report_start_time = time.time()
-    heap_profile = self._hpy().heap()
-    logging.info('*** MemoryReport Heap:\n %s\n MemoryReport took %.1f seconds',
+    heap_profile = summary.summarize(self._muppy.get_objects())
+    logging.info('*** MemoryReport Heap:\n {}\n MemoryReport took {:.1f} seconds',
                  heap_profile, time.time() - report_start_time)

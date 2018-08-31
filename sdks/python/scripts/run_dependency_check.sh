@@ -21,7 +21,7 @@ set -e
 set -v
 
 # Virtualenv for the rest of the script to run setup
-/usr/bin/virtualenv sdks/python
+/usr/bin/virtualenv -p python3 sdks/python
 . sdks/python/bin/activate
 pip install -e .[gcp,test,docs]
 

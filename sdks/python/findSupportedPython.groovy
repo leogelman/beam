@@ -26,10 +26,10 @@
 
 import org.apache.maven.plugin.MojoFailureException
 
-requiredPythonVersion = /.*[Pp]ython 2\.7.*/
+requiredPythonVersion = /.*[Pp]ython 3\.6.*/
 
-pythonCandidates = ["python2.7", "python-2.7", "python2", "python-2", "python"]
-pipCandidates = ["pip2.7", "pip-2.7", "pip2", "pip-2", "pip"]
+pythonCandidates = ["python3.6", "python-3.6", "python3", "python-3", "python"]
+pipCandidates = ["pip3.6", "pip-3.6", "pip3", "pip-3", "pip"]
 
 def String findExecutable(String[] candidates, versionRegex) {
     for (candidate in candidates) {
@@ -67,11 +67,11 @@ pipBin = findExecutable(pipCandidates.collect(specializeCandidateForOS) as Strin
                         requiredPythonVersion)
 
 if (pythonBin == null) {
-   throw new MojoFailureException("Unable to find Python 2.7 in path")
+   throw new MojoFailureException("Unable to find Python 3.6 in path")
 }
 
 if (pipBin == null) {
-   throw new MojoFailureException("Unable to find pip for Python 2.7 in path")
+   throw new MojoFailureException("Unable to find pip for Python 3.6 in path")
 }
 
 log.info("Using python interpreter binary '" + pythonBin + "' with pip '" + pipBin + "'")

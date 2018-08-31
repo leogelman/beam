@@ -64,7 +64,7 @@ function cleanup_container {
 trap cleanup_container EXIT
 
 # Virtualenv for the rest of the script to run setup & e2e test
-virtualenv sdks/python/container
+virtualenv -p python3 sdks/python/container
 . sdks/python/container/bin/activate
 cd sdks/python
 pip install -e .[gcp,test]

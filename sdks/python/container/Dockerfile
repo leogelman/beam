@@ -16,7 +16,7 @@
 # limitations under the License.
 ###############################################################################
 
-FROM python:2-stretch
+FROM python:3.6-stretch
 MAINTAINER "Apache Beam <dev@beam.apache.org>"
 
 # Install native bindings required for dependencies.
@@ -45,43 +45,43 @@ RUN \
     # TODO: This make more sense as a requirements.txt file (BEAM-5076)
     pip install "avro == 1.8.2" && \
     pip install "crcmod == 1.7" && \
-    pip install "dill == 0.2.6" && \
-    pip install "grpcio == 1.3.0" && \
+    pip install "dill == 0.2.8" && \
+    pip install "grpcio == 1.14.1" && \
     pip install "hdfs == 2.1.0" && \
-    pip install "httplib2 == 0.9.2" && \
+    pip install "httplib2 == 0.11.3" && \
     pip install "mock == 2.0.0" && \
     pip install "oauth2client == 3.0.0" && \
-    pip install "protobuf == 3.3.0" && \
-    pip install "pytz == 2018.4" && \
-    pip install "pyyaml == 3.12" && \
+    pip install "protobuf == 3.6.1" && \
+    pip install "pytz == 2018.5" && \
+    pip install "pyyaml == 3.13" && \
     pip install "pyvcf == 0.6.8" && \
-    pip install "six == 1.10.0" && \
-    pip install "typing == 3.6.1" && \
+    pip install "six == 1.11.0" && \
+    pip install "typing == 3.6.4" && \
     pip install "futures == 3.1.1" && \
     pip install "future == 0.16.0" && \
     # Setup packages
     pip install "nose == 1.3.7" && \
     # GCP extra features
-    pip install "google-apitools == 0.5.11" && \
+    pip install "google-apitools == 0.5.23" && \
     pip install "proto-google-cloud-datastore-v1 == 0.90.4" && \
     pip install "googledatastore == 7.0.1" && \
-    pip install "google-cloud-pubsub == 0.26.0" && \
+    pip install "google-cloud-pubsub == 0.37.2" && \
     pip install "proto-google-cloud-pubsub-v1 == 0.15.4" && \
-    pip install "google-cloud-bigquery == 0.25.0" && \
+    pip install "google-cloud-bigquery == 1.5.0" && \
     # Optional packages
-    pip install "cython == 0.28.1" && \
-    pip install "guppy == 0.1.10" && \
+    pip install "cython == 0.28.5" && \
+    pip install "pympler == 0.5" && \
     pip install "python-snappy == 0.5.3" && \
     # These are additional packages likely to be used by customers.
-    pip install "numpy == 1.13.3" --no-binary=:all: && \
-    pip install "pandas == 0.18.1" && \
-    pip install "scipy == 1.0.0" && \
-    pip install "protobuf == 3.3.0" && \
-    pip install "tensorflow == 1.4.0" && \
-    pip install "protorpc == 0.11.1" && \
-    pip install "python-gflags == 3.0.6" && \
+    pip install "numpy == 1.15.1" --no-binary=:all: && \
+    pip install "pandas == 0.23.4" && \
+    pip install "scipy == 1.1.0" && \
+    pip install "protobuf == 3.6.1" && \
+    pip install "tensorflow == 1.10.1" && \
+    pip install "protorpc == 0.12.0" && \
+    pip install "python-gflags == 3.1.2" && \
     # Check that the fast implementation of protobuf is used.
-    python -c "from google.protobuf.internal import api_implementation; assert api_implementation._default_implementation_type == 'cpp'; print 'Verified fast protobuf used.'" && \
+    python -c "from google.protobuf.internal import api_implementation; assert api_implementation._default_implementation_type == 'cpp'; print('Verified fast protobuf used.')" && \
     # Remove pip cache.
     rm -rf /root/.cache/pip
 
